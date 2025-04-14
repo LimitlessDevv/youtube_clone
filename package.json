@@ -4,7 +4,7 @@
   "description": "Youtube Clone Coding",
   "main": "index.js",
   "scripts": {
-    "win": "node src/server.js"
+    "dev": "nodemon --exec babel-node src/server.js"
   },
   "keywords": [
     "youtube_clone"
@@ -17,6 +17,7 @@
   "devDependencies": {
     "@babel/core": "^7.26.10",
     "@babel/node": "^7.26.0",
-    "@babel/preset-env": "^7.26.9"
+    "@babel/preset-env": "^7.26.9",
+    "nodemon": "^3.1.9"
   }
 }
