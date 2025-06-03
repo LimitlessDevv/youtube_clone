@@ -1,5 +1,11 @@
 // import express module (서버를 만드는 프레임워크)
 import express from "express";
+// Express에서 가장 많이 쓰이는 HTTP 요청 로깅 미들웨어
+// 서버에 요청이 들어올 때마다 로그가 자동으로 터미널에 출력됨
+import morgan from "morgan";
+import globalRouter from "./routers/globalRouter";
+import videoRouter from "./routers/videoRouter";
+import userRouter from "./routers/userRouter";
 
 // express application 객체 생성
 const app = express();
@@ -7,21 +13,12 @@ const app = express();
 // port 변수 지정
 const PORT = 4000;
 
-// req : request 객체 : 클라가 보낸 요청 정보 (ex. url, header, body) 정보를 담고 있음
-// res : response 객체 : 서버가 클라에게 보낼 응답을 제어하는 객체
-const handleHome = (req, res) => {
-  return res.end("Hi"); // 문자열을 HTTP body에 담아서 브라우저로 전송하고, 응답을 종료
-};
+const logger = morgan("dev");
+app.use(logger);
 
-// app.get 메소드 : 클라이언트가 특정 경로로 GET 요청을 보낼 때, 요청에 대한 처리를 정의
-// app.get(path, callback)
-app.get("/", handleHome);
-
-const handleLogin = (req, res) => {
-  return res.send("Login here.");
-};
-
-app.get("/login", handleLogin);
+app.use("/", globalRouter);
+app.use("/videos", videoRouter);
+app.use("/users", userRouter);
 
 // handleListening : 서버가 시작될 때, 호출되는 콜백 함수
 const handleListening = () =>
