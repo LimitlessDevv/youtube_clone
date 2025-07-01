@@ -1,6 +1,6 @@
 import express from "express";
 
-import {watch, getEdit, postEdit} from "../controllers/videoController"
+import {watch, getEdit, postEdit, getUpload, postUpload} from "../controllers/videoController"
 
 const videoRouter = express.Router()
 
@@ -8,6 +8,7 @@ const videoRouter = express.Router()
 // (\d+) : 정규 표현식으로, 숫자만 허용 하겠다는 의미
 // \d는 숫자 하나를 의미 \d+는 숫자 하나 이상을 의미, Javascript에서는 \를 escape 해야 해서, \\d+라고 쓴다
 videoRouter.get("/:id(\\d+)", watch);
-videoRouter.route("/:id(\\d+)/edit").get(getEdit).post(postEdit)
+videoRouter.route("/:id(\\d+)/edit").get(getEdit).post(postEdit);
+videoRouter.route("/upload").get(getUpload).post(postUpload);
 
 export default videoRouter;
